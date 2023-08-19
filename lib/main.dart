@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_provider/controllers/theme_controller.dart';
+import 'package:learn_provider/controllers/todo_controller.dart';
 import 'package:learn_provider/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'controllers/counter_controller.dart';
@@ -17,6 +18,7 @@ class LearnProvider extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<CounterController>(create: (context) => CounterController()),
         ChangeNotifierProvider<ThemeController>(create: (context) => ThemeController()),
+        // ChangeNotifierProvider<TodoController>(create: (context) => TodoController()),
       ],
       builder: (ctx, _) {
         return MaterialApp(
