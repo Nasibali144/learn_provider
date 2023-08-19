@@ -18,7 +18,7 @@ class LearnProvider extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<CounterController>(create: (context) => CounterController()),
         ChangeNotifierProvider<ThemeController>(create: (context) => ThemeController()),
-        // ChangeNotifierProvider<TodoController>(create: (context) => TodoController()),
+        ChangeNotifierProvider<TodoController>(create: (context) => TodoController()),
       ],
       builder: (ctx, _) {
         return MaterialApp(

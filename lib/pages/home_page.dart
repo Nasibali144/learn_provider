@@ -73,12 +73,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => ChangeNotifierProvider<TodoController>(
-                      create: (context) => TodoController(),
-                      child: const TodoPage(),
-                    ),
-                  ),
+                  MaterialPageRoute(builder: (context) => const TodoPage()),
                 );
               },
               child: const Text("Todo App"),
