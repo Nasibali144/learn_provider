@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learn_provider/controllers/theme_controller.dart';
 import 'package:learn_provider/pages/home_page.dart';
 import 'package:provider/provider.dart';
 import 'controllers/counter_controller.dart';
@@ -12,18 +13,20 @@ class LearnProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      builder: (context, child) {
-        return  MaterialApp(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CounterController>(create: (context) => CounterController()),
+        ChangeNotifierProvider<ThemeController>(create: (context) => ThemeController()),
+      ],
+      builder: (ctx, _) {
+        return MaterialApp(
           theme: ThemeData.light(useMaterial3: true),
-          themeMode: ThemeMode.light,
+          darkTheme: ThemeData.dark(useMaterial3: true),
+          themeMode: Provider.of<ThemeController>(ctx).mode,
           debugShowCheckedModeBanner: false,
-          home: child,
+          home: const HomePage(),
         );
       },
-      lazy: true,
-      create: (context) => CounterController(),
-      child: const HomePage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learn_provider/controllers/counter_controller.dart';
+import 'package:learn_provider/controllers/theme_controller.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,11 +13,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    final counter = Provider.of<CounterController>(context);
+    final counter = Provider.of<CounterController>(context, listen: false);
+    final theme = Provider.of<ThemeController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Learn Provider Home Page"),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              theme.changeTheme();
+            },
+            icon: Consumer<ThemeController>(
+              builder: (context, mode, _) {
+                return Icon(mode.mode == ThemeMode.dark
+                    ? Icons.light_mode
+                    : Icons.dark_mode);
+              }
+            ),
+          ),
+        ],
       ),
       body: Center(
         child: Row(
@@ -30,9 +46,11 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(fontSize: 25),
               ),
             ),
-            Text(
-              "${counter.currentCount}",
-              style: const TextStyle(fontSize: 30),
+            Consumer<CounterController>(
+              builder: (context, controller, child) => Text(
+                "${counter.currentCount}",
+                style: const TextStyle(fontSize: 30),
+              ),
             ),
             ElevatedButton(
               onPressed: () => counter.decrement(),
